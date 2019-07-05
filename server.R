@@ -48,7 +48,7 @@ shinyServer(function(input, output, session) {
                                    #print('Loading data')
                                    filters <- ''
                                    if (file.exists(myFilters)){
-                                     filters <- read.csv(myFilters, header = TRUE)
+                                     filters <- read.csv(myFilters, header = TRUE, stringsAsFactors=FALSE, colClasses = c("character"))
                                    }
                                    filters
                                  }
@@ -114,6 +114,8 @@ shinyServer(function(input, output, session) {
   
   # This is just a simple example plot to show the number of CA records
   output$mainPlot <- renderPlotly({
+    
+    
     
     countBySpecies <- aggregate(RecordType ~ ScientificName_WoRMS + Sex, data = CA(), length)
     
